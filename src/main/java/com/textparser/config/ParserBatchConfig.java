@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -51,8 +52,7 @@ public class ParserBatchConfig {
     @Bean
     public StaxEventItemWriter<Sentence> writer() {
         StaxEventItemWriter<Sentence> writer = new StaxEventItemWriter<>();
-        writer.setResource(new FileSystemResource("E:/practice/2025/springbatch/sentenceout.xml"));
-        //writer.setResource(new FileSystemResource("src/main/resources/large.xml"));
+        writer.setResource(new FileSystemResource("src/main/resources/sentence_out.xml"));
         writer.setMarshaller(marshaller());
         writer.setRootTagName("sentence");
         writer.setOverwriteOutput(true);
@@ -70,7 +70,7 @@ public class ParserBatchConfig {
     public Step parserStep() throws IOException {
         return new StepBuilder("texttoxmlstep",jobRepository)
                 .<String, Sentence>chunk(10,transactionManager)
-                .reader(new SentenceReader(new FileSystemResource("E:/practice/2025/springbatch/small.in")))
+                .reader(new SentenceReader(new ClassPathResource("small.in")))
                 .processor(sentenceProcessor)
                 .writer(writer())
                 .build();
