@@ -23,6 +23,10 @@ public class ParserController {
     @Qualifier("parserTextToXmlJob")
     private Job job;
 
+    @Autowired
+    @Qualifier("textToCsvJob")
+    private Job csvJob;
+
     @GetMapping("/up")
     public String helloParser() {
         return "Hello parser application!";
@@ -32,9 +36,17 @@ public class ParserController {
     public String textToXmlParser() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         JobParameters jobParameters = new JobParametersBuilder()
                 .addLong("startJob", System.currentTimeMillis())
-                //.addString("filePath", filePath)
                 .toJobParameters();
         JobExecution run=jobLauncher.run(job,jobParameters);
+        return run.getStatus().toString();
+    }
+
+    @GetMapping("/texttocsv")
+    public String textToCsvParser() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("startCSVJob", System.currentTimeMillis())
+                .toJobParameters();
+        JobExecution run=jobLauncher.run(csvJob,jobParameters);
         return run.getStatus().toString();
     }
 }
