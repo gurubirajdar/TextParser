@@ -20,3 +20,17 @@
        username: admin
        password: amdin   
 4. In application.propeties file mention database connetion details and spring job enabled as false.
+
+   
+------------------############################################ TEXT TO CSV NEW PROJECT LINK WORKING WITH "large.in" file ##############################################-----------------------
+
+New project Access link : https://github.com/gurubirajdar/TextParserToCsv
+
+1. Checkout this application in your local system ( https://github.com/gurubirajdar/TextParserToCsv.git )  and import as existing source project.
+2. Run main class : TextParserToCsvApplication.java as spring boot applicaiton.
+3. After successfully run spring boot application in browser hit below url,
+    http://localhost:8080/batch/csv
+4. large-out.csv file generated "src/main/resources/large-out.csv"
+5. large.in file read, parse and write csv file larg-out.csv file. 
+
+   
